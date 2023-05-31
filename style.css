@@ -1,0 +1,256 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  max-width: 800px;
+  padding: 50px;
+  margin: 0 auto;
+  display: flex;
+  place-items: center;
+  min-height: 100vh;
+}
+
+.cards {
+  width: 100%;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+}
+
+.card {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.card--expanded {
+  cursor: default;
+}
+
+.card__content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  border-radius: 5px;
+  background: rgb(122, 102, 191);
+  overflow: hidden;
+}
+
+.card:nth-child(2) .card__content {
+  background: rgb(191, 102, 158);
+}
+
+.card:nth-child(3) .card__content {
+  background: rgb(24, 149, 91);
+}
+
+.card--expanded .card__content {
+  border-radius: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: auto;
+}
+
+.card__user-image {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  will-change: transform;
+  transform-origin: 0 0;
+}
+
+.card--expanded .card__user-image {
+  width: 100px;
+  height: 100px;
+}
+
+.card__images {
+  display: grid;
+  gap: 10px;
+  max-width: 800px;
+  width: 100%;
+  margin: 50px auto 0;
+  transform-origin: 0 0;
+  position: absolute;
+  top: 100%;
+}
+
+.card--expanded .card__images {
+  position: static;
+}
+
+.card__image {
+  border-radius: 5px;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.card__title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  transform-origin: 0 0;
+  line-height: 1;
+}
+
+.card--expanded .card__title {
+  font-size: 30px;
+}
+
+.card__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px 14px;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.card--expanded .card__header {
+  flex-direction: row;
+}
+
+.card__user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.card--expanded .card__user-info {
+  align-items: flex-start;
+  gap: 2px 0;
+}
+
+.card__user-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 0;
+  pointer-events: none;
+  opacity: 0;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 0 14px;
+}
+
+.card--expanded .card__user-links {
+  position: static;
+  opacity: 1;
+  height: auto;
+  margin-top: 5px;
+  pointer-events: all;
+}
+
+.card__user-link {
+  display: flex;
+}
+
+.card__user-link-icon {
+  fill: currentColor;
+  color: white;
+  width: 20px;
+}
+
+.card__bio {
+  opacity: 0;
+  height: 0;
+  transform-origin: 0 0;
+}
+
+.card--expanded .card__bio {
+  max-width: 800px;
+  margin: 20px auto 0;
+  opacity: 1;
+  height: auto;
+}
+
+.card__close {
+  position: absolute;
+  right: -40px;
+  top: 20px;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  color: white;
+  padding: 10px;
+}
+
+.card--expanded .card__close {
+  transition: 0.3s all ease;
+  transition-delay: 0.3s;
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(-100%) translateX(-20px);
+}
+
+.card--animatable .card__user-image,
+.card--animatable .card__title,
+.card--animatable .card__subtitle,
+.card--animatable .card__user-links,
+.card--animatable .card__bio,
+.card--animatable .card__images,
+.card--animatable .card__content {
+  transition: all 0.5s cubic-bezier(0, 0, 0.21, 1);
+}
+
+@media (min-width: 520px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .card__images {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .cards {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .card__images {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
